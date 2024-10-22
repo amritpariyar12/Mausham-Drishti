@@ -107,5 +107,45 @@ function updateBackground(condition) {
   }
 }
 
-// Call the async function
-fetchWeatherData();
+//DARK MODE
+function toggleDarkMode() {
+  const body = document.body;
+  const navbar = document.querySelector('nav');
+  const cards = document.querySelectorAll('.card');
+  const table = document.querySelector('table');
+  
+  // Toggle dark mode for body, navbar, and cards
+  body.classList.toggle('dark-mode');
+  navbar.classList.toggle('bg-dark');
+  
+  // Toggle dark mode for all cards
+  cards.forEach(card => {
+    card.classList.toggle('bg-dark');
+    card.classList.toggle('text-white');
+  });
+  table.classList.toggle('table-dark');
+}
+// Event listener for dark mode toggle button (replace with your button id)
+document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
+
+
+
+//MAP
+const map = L.map('map').setView([27.7172, 85.3240], 10); // Kathmandu as center
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+// Add marker for the city
+function updateMap(lat, lon) {
+  L.marker([lat, lon]).addTo(map).bindPopup('Weather Location').openPopup();
+}
+
+// In fetchWeatherData function, after fetching data:
+const lat = result.coord.lat;
+const lon = result.coord.lon;
+updateMap(lat, lon);
+
+
+
+  
