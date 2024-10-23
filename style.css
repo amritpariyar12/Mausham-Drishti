@@ -113,3 +113,42 @@ body.dark-mode {
   border-color: #343a40;
 }
 
+
+/* Card Shadow & Hover Effect (3D Depth) */
+.card {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover effect for 3D depth */
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Button Hover 3D Effect */
+/* Normal button style */
+button {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover effect */
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* 3D Effects on Table */
+/* Normal table style with light shadow */
+.table {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover effect for the table */
+.table:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
