@@ -2,7 +2,7 @@
 const apiKey = "940c4f7e6bf43643efb91995851faa4d";
 
 async function fetchWeatherData(city) {
-  // const url = 'https://api.openweathermap.org/data/2.5/weather?q=Kathmandu&appid=940c4f7e6bf43643efb91995851faa4d';
+  // const url = 'https://api.openweathermap.org/data/2.5/weather?q=kathmandu&appid=940c4f7e6bf43643efb91995851faa4d';
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
   const options = {
     method: "GET",
@@ -18,7 +18,14 @@ async function fetchWeatherData(city) {
 
     // Extract weather condition
     const weatherCondition = result.weather[0].main;
+    const sunrise = result.sys.sunrise; 
+    const sunset = result.sys.sunset; 
+    const currentTime = Math.floor(Date.now() / 1000); 
     updateBackground(weatherCondition);
+
+    // Determine if it's day or night
+    const isDaytime = currentTime >= sunrise && currentTime < sunset;
+    updateBackground(weatherCondition, isDaytime);
 
     const tempCelsius = (result.main.temp - 273.15).toFixed(2);
     const feels_likeCelsius = (result.main.feels_like - 273.15).toFixed(2);
@@ -53,7 +60,7 @@ async function fetchWeatherData(city) {
 }
 
 
-// Add event listener to the search button
+// // Add event listener to the search button
 document.getElementById("search").addEventListener("click", (e) => {
   e.preventDefault(); 
 
@@ -71,43 +78,44 @@ fetchWeatherData("Kathmandu");
 
 
 
-
-// Function to update background based on weather condition
-function updateBackground(condition) {
+// // Function to update background based on weather condition
+function updateBackground(condition, isDaytime) {
   const body = document.body;
-  body.classList.remove('clear', 'clouds', 'rain', 'snow', 'thunderstorm', 'drizzle', 'mist', 'default');
+  body.className = ""; // Reset all classes
+
+  let timeOfDay = isDaytime ? "day" : "night";
 
   switch (condition.toLowerCase()) {
-    case 'clear':
-      body.classList.add('clear');
+    case "clear":
+      body.classList.add(`clear-${timeOfDay}`);
       break;
-    case 'clouds':
-      body.classList.add('clouds');
+    case "clouds":
+      body.classList.add(`clouds-${timeOfDay}`);
       break;
-    case 'rain':
-      body.classList.add('rain');
+    case "rain":
+      body.classList.add(`rain-${timeOfDay}`);
       break;
-    case 'snow':
-      body.classList.add('snow');
+    case "snow":
+      body.classList.add(`snow-${timeOfDay}`);
       break;
-    case 'thunderstorm':
-      body.classList.add('thunderstorm');
+    case "thunderstorm":
+      body.classList.add(`thunderstorm-${timeOfDay}`);
       break;
-    case 'drizzle':
-      body.classList.add('drizzle');
+    case "drizzle":
+      body.classList.add(`drizzle-${timeOfDay}`);
       break;
-    case 'mist':
-    case 'fog':
-    case 'haze':
-      body.classList.add('mist');
+    case "mist":
+    case "fog":
+    case "haze":
+      body.classList.add(`mist-${timeOfDay}`);
       break;
     default:
-      body.classList.add('default');
+      body.classList.add(`default-${timeOfDay}`);
       break;
   }
 }
 
-//DARK MODE
+// //DARK MODE
 function toggleDarkMode() {
   const body = document.body;
   const navbar = document.querySelector('nav');
@@ -130,11 +138,11 @@ document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMo
 
 
 
-//MAP
-const map = L.map('map').setView([27.7172, 85.3240], 10); // Kathmandu as center
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
+// //MAP
+// const map = L.map('map').setView([27.7172, 85.3240], 10); // Kathmandu as center
+// L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+// }).addTo(map);
 
 // Add marker for the city
 function updateMap(lat, lon) {
@@ -142,10 +150,20 @@ function updateMap(lat, lon) {
 }
 
 // In fetchWeatherData function, after fetching data:
-const lat = result.coord.lat;
-const lon = result.coord.lon;
-updateMap(lat, lon);
+// const lat = result.coord.lat;
+// const lon = result.coord.lon;
+// updateMap(lat, lon);
 
 
 
-  
+// for date and time
+// Show Time and Date when button is clicked
+document.getElementById('timeDateButton').addEventListener('click', function () {
+  const now = new Date();
+  const time = now.toLocaleTimeString();
+  const date = now.toDateString();
+
+  const display = document.getElementById('timeDateDisplay');
+  display.innerHTML = `Time: ${time} <br> Date: ${date}`;
+  display.style.display = 'block';
+});
