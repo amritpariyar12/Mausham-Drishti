@@ -115,6 +115,40 @@ function updateBackground(condition, isDaytime) {
   }
 }
 
+// DISPLAYING WAETHER ON TABLE
+async function fetchWeatherForCity(city, rowIdPrefix) {
+  const apiKey = "940c4f7e6bf43643efb91995851faa4d";
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    
+    document.getElementById(`${rowIdPrefix}-temp`).textContent = `${data.main.temp} °C`;
+    document.getElementById(`${rowIdPrefix}-feels-like`).textContent = `${data.main.feels_like} °C`;
+    document.getElementById(`${rowIdPrefix}-max-temp`).textContent = `${data.main.temp_max} °C`;
+    document.getElementById(`${rowIdPrefix}-min-temp`).textContent = `${data.main.temp_min} °C`;
+    document.getElementById(`${rowIdPrefix}-pressure`).textContent = `${data.main.pressure} hPa`;
+    document.getElementById(`${rowIdPrefix}-humidity`).textContent = `${data.main.humidity} %`;
+    document.getElementById(`${rowIdPrefix}-visibility`).textContent = `${data.visibility / 1000} km`;
+    document.getElementById(`${rowIdPrefix}-sunrise`).textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
+    document.getElementById(`${rowIdPrefix}-sunset`).textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
+
+  } catch (error) {
+    console.error(`Error fetching weather data for ${city}:`, error);
+  }
+}
+window.onload = function () {
+  fetchWeatherForCity("Butwal", "butwal");
+  fetchWeatherForCity("Sunwal", "sunwal");
+  fetchWeatherForCity("Nepalgunj", "nepalgunj");
+  fetchWeatherForCity("Baglung", "baglung");
+  fetchWeatherForCity("Mustang", "mustang");
+};
+
+
+
 // //DARK MODE
 function toggleDarkMode() {
   const body = document.body;
