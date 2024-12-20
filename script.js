@@ -14,7 +14,7 @@ async function fetchWeatherData(city) {
       throw new Error("Failed to fetch weather data.");
     }
     const result = await response.json();
-    console.log(result);
+    // console.log(result);
 
     // Extract weather condition
     const weatherCondition = result.weather[0].main;
@@ -44,7 +44,7 @@ async function fetchWeatherData(city) {
     document.getElementById("temp_min").innerHTML = `${toMinCelsius}°C`;
     document.getElementById("temp_max").innerHTML = `${toMaxCelsius}°C`;
     document.getElementById("pressure").innerHTML = `${pressure} hPa`;
-    document.getElementById("humidity").innerHTML = `${humidity}%`;
+    document.getElementById("humidity").innerHTML = `${humidity}%  `;
     document.getElementById("sea_level").innerHTML = sea_level ? `${sea_level} hPa` : "N/A";
     document.getElementById("grnd_level").innerHTML = grnd_level ? `${grnd_level} hPa` : "N/A";
     document.getElementById("visibility").innerHTML = `${visibilityKm} km`;
@@ -172,11 +172,11 @@ document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMo
 
 
 
-// //MAP
-// const map = L.map('map').setView([27.7172, 85.3240], 10); // Kathmandu as center
-// L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-// }).addTo(map);
+//MAP
+const map = L.map('map').setView([27.7172, 85.3240], 10); // Kathmandu as center
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
 
 // Add marker for the city
 function updateMap(lat, lon) {
@@ -201,3 +201,97 @@ document.getElementById('timeDateButton').addEventListener('click', function () 
   display.innerHTML = `Time: ${time} <br> Date: ${date}`;
   display.style.display = 'block';
 });
+
+
+// Toggle the About Card Display
+document.addEventListener("DOMContentLoaded", () => {
+  const aboutLink = document.getElementById("aboutLink");
+  const aboutCard = document.getElementById("aboutCard");
+
+  aboutLink.addEventListener("click", (event) => {
+    event.preventDefault(); // Prevent page reload
+    // Toggle display of the card
+    if (aboutCard.style.display === "none" || aboutCard.style.display === "") {
+      aboutCard.style.display = "block";
+    } else {
+      aboutCard.style.display = "none";
+    }
+  });
+});
+
+
+
+// Function to fetch Air Quality Index (AQI)
+async function fetchAQIAndUV(latitude, longitude) {
+  try {
+    // Fetch AQI
+    const aqiUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+    const aqiResponse = await fetch(aqiUrl);
+    const aqiData = await aqiResponse.json();
+    const aqi = aqiData.list[0].main.aqi;
+    displayAQI(aqi);
+
+    // Fetch UV Index
+    const uvUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+    const uvResponse = await fetch(uvUrl);
+    const uvData = await uvResponse.json();
+    const uvIndex = uvData.value;
+    displayUVIndex(uvIndex);
+
+  } catch (error) {
+    console.error("Error fetching AQI and UV Index:", error);
+    document.getElementById("aqi-tips").innerText = "Failed to load AQI data.";
+    document.getElementById("uv-tips").innerText = "Failed to load UV Index.";
+  }
+}
+
+// Display AQI
+function displayAQI(aqi) {
+  const tips = [
+    "Good: Air quality is satisfactory.",
+    "Fair: Acceptable.",
+    "Moderate: May affect sensitive individuals.",
+    "Poor: Health effects for sensitive groups.",
+    "Very Poor: Warnings for everyone."
+  ];
+  document.getElementById("aqi-value").innerText = aqi;
+  document.getElementById("aqi-tips").innerText = tips[aqi - 1] || "Unknown AQI level.";
+}
+
+// Display UV Index
+function displayUVIndex(uv) {
+  const tips = uv <= 2
+    ? "Low: Safe"
+    : uv <= 5
+    ? "Moderate: Use sunscreen"
+    : uv <= 7
+    ? "High: Stay in shade"
+    : "Very High: Avoid midday sun";
+  document.getElementById("uv-value").innerText = uv;
+  document.getElementById("uv-tips").innerText = tips;
+}
+
+// Example Usage: Replace latitude and longitude with dynamic values
+fetchAQIAndUV(27.7172, 85.3240); // Default: Kathmandu
+
+
+
+
+// document.getElementById("submit-quiz").addEventListener("click", function () {
+//   const questions = document.querySelectorAll(".quiz-question");
+//   let correctAnswers = 0;
+
+//   questions.forEach((question, index) => {
+//       const selectedOption = question.querySelector("input[name=q" + (index + 1) + "]:checked");
+//       if (selectedOption && selectedOption.value === "correct") {
+//           correctAnswers++;
+//       }
+//   });
+
+//   const resultDiv = document.getElementById("quiz-result");
+//   if (correctAnswers === questions.length) {
+//       resultDiv.innerHTML = `🎉 Great job! You got all ${correctAnswers} questions correct.`;
+//   } else {
+//       resultDiv.innerHTML = `You got ${correctAnswers} out of ${questions.length} questions correct. Try again!`;
+//   }
+// });

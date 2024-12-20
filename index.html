@@ -52,7 +52,7 @@
             <li class="nav-item">
               <a class="nav-link" href="#aboutthisapp">About this App</a>
             </li>
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
                 href="#"
@@ -61,12 +61,12 @@
                 aria-expanded="false"
               >
               </a>
-              <ul class="dropdown-menu">
+               <ul class="dropdown-menu">
                 <li>
                   <a class="dropdown-item" href="#"> </a>
                 </li>
               </ul>
-            </li>
+            </li> -->
             <!-- <li class="nav-item">
             <a class="nav-link disabled" aria-disabled="true">Contact</a>
           </li> -->
@@ -206,7 +206,7 @@
                 <td id="nepalgunj-max-temp"></td>
                 <td id="nepalgunj-min-temp"></td>
                 <td id="nepalgunj-pressure"></td>
-                <td id="nepalgunj-humidit"></td>
+                <td id="nepalgunj-humidity"></td>
                 <td id="nepalgunj-visibility"></td>
                 <td id="nepalgunj-sunrise"></td>
                 <td id="nepalgunj-sunset"></td>
@@ -218,7 +218,7 @@
                 <td id="baglung-max-temp"></td>
                 <td id="baglung-min-temp"></td>
                 <td id="baglung-pressure"></td>
-                <td id="baglung-humidit"></td>
+                <td id="baglung-humidity"></td>
                 <td id="baglung-visibility"></td>
                 <td id="baglung-sunrise"></td>
                 <td id="baglung-sunset"></td>
@@ -230,7 +230,7 @@
                 <td id="mustang-max-temp"></td>
                 <td id="mustang-min-temp"></td>
                 <td id="mustang-pressure"></td>
-                <td id="mustang-humidit"></td>
+                <td id="mustang-humidity"></td>
                 <td id="mustang-visibility"></td>
                 <td id="mustang-sunrise"></td>
                 <td id="mustang-sunset"></td>
@@ -241,9 +241,49 @@
       </main>
     </div>
 
-    <button id="darkModeToggle">Dark Toggle Mode</button>
-    <!-- <div id="map" style="height: 400px; width: 100%;"></div> -->
+    <h1 class="airdetails" style="text-align: center;">Weather Details</h1>
+    <div class="container1">
+        <!-- AQI Card -->
+        <div class="card1" id="aqi-card">
+            <h2>Air Quality Index (AQI)</h2>
+            <div class="value" id="aqi-value">--</div>
+            <p class="tips" id="aqi-tips">Fetching AQI data...</p>
+        </div>
+         <!-- UV Index Card -->
+         <div class="card1" id="uv-card">
+          <h2>UV Index</h2>
+          <div class="value" id="uv-value">--</div>
+          <p class="tips" id="uv-tips">Fetching UV Index data...</p>
+      </div>
+  </div>
 
+  <!-- <div id="quiz-card" class="card">
+    <h2>Weather Quiz</h2>
+    <form id="quiz-form">
+        <div class="quiz-question">
+            <p>1. What is the main gas responsible for global warming?</p>
+            <label><input type="radio" name="q1" value="correct"> Carbon Dioxide</label><br>
+            <label><input type="radio" name="q1" value="wrong"> Oxygen</label><br>
+            <label><input type="radio" name="q1" value="wrong"> Hydrogen</label><br>
+        </div>
+        <div class="quiz-question">
+            <p>2. What is the average temperature of the Earth's surface?</p>
+            <label><input type="radio" name="q2" value="wrong"> 10°C</label><br>
+            <label><input type="radio" name="q2" value="wrong"> 20°C</label><br>
+            <label><input type="radio" name="q2" value="correct"> 15°C</label><br>
+        </div>
+        <div class="quiz-question">
+            <p>3. Which layer of the atmosphere contains the ozone layer?</p>
+            <label><input type="radio" name="q3" value="correct"> Stratosphere</label><br>
+            <label><input type="radio" name="q3" value="wrong"> Troposphere</label><br>
+            <label><input type="radio" name="q3" value="wrong"> Mesosphere</label><br>
+        </div>
+        <button type="button" id="submit-quiz">Submit</button>
+    </form>
+    <div id="quiz-result"></div>
+</div> -->
+
+    
     <!-- FOR DATE AND TIMe -->
     <!-- Time and Date Button -->
     <div id="time-date-container">
@@ -254,7 +294,32 @@
         style="display: none"
       ></div>
     </div>
+    <button id="darkModeToggle">Dark Toggle Mode</button>
+    <div id="map" ></div>
 
+    
+  
+
+    <!-- Footer Section -->
+<footer class="bg-dark text-white text-center py-3">
+  <div class="container">
+    <p>&copy; 2024 Mausham Drishti. All rights reserved.</p>
+    <p>Developed by <strong>Amrit Pariyar</strong></p>
+    <p>Contact us: <a href="mailto:example@email.com" class="text-white">amritpariyar249@gmail.com</a></p>
+    <div>
+      <a href="https://www.facebook.com/profile.php?id=100037785623745&mibextid=ZbWKwL" target="_blank" class="text-white me-2">Facebook</a>
+      <a href="https://www.instagram.com/amritpariyar464?igsh=YWc0Y3l0N2d0ZjBo" target="_blank" class="text-white me-2">Instagram</a>
+      <a href="https://www.linkedin.com/in/amrit-pariyar-12aa80258" target="_blank" class="text-white">LinkedIn</a>
+    </div>
+    <p>Weather data provided by <a href="https://openweathermap.org" target="_blank" class="text-white">OpenWeatherMap</a></p>
+    <p>
+      <a href="privacy-policy.html" class="text-white">Privacy Policy</a> | 
+      <a href="terms.html" class="text-white">Terms of Use</a>
+    </p>
+  </div>
+</footer>
+
+    
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
