@@ -277,21 +277,21 @@ fetchAQIAndUV(27.7172, 85.3240); // Default: Kathmandu
 
 
 
-// document.getElementById("submit-quiz").addEventListener("click", function () {
-//   const questions = document.querySelectorAll(".quiz-question");
-//   let correctAnswers = 0;
+document.getElementById("submit-quiz").addEventListener("click", function () {
+  const questions = document.querySelectorAll(".quiz-question");
+  let correctAnswers = 0;
 
-//   questions.forEach((question, index) => {
-//       const selectedOption = question.querySelector("input[name=q" + (index + 1) + "]:checked");
-//       if (selectedOption && selectedOption.value === "correct") {
-//           correctAnswers++;
-//       }
-//   });
+  questions.forEach((question, index) => {
+      const selectedOption = question.querySelector("input[name=q" + (index + 1) + "]:checked");
+      if (selectedOption && selectedOption.value === "correct") {
+          correctAnswers++;
+      }
+  });
 
-//   const resultDiv = document.getElementById("quiz-result");
-//   if (correctAnswers === questions.length) {
-//       resultDiv.innerHTML = `🎉 Great job! You got all ${correctAnswers} questions correct.`;
-//   } else {
-//       resultDiv.innerHTML = `You got ${correctAnswers} out of ${questions.length} questions correct. Try again!`;
-//   }
-// });
+  const resultDiv = document.getElementById("quiz-result");
+  if (correctAnswers === questions.length) {
+      resultDiv.innerHTML = `🎉 Great job! You got all ${correctAnswers} questions correct.`;
+  } else {
+      resultDiv.innerHTML = `You got ${correctAnswers} out of ${questions.length} questions correct. Try again!`;
+  }
+});
