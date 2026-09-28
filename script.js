@@ -21,7 +21,7 @@ async function fetchWeatherData(city) {
     const sunrise = result.sys.sunrise; 
     const sunset = result.sys.sunset; 
     const currentTime = Math.floor(Date.now() / 1000); 
-    updateBackground(weatherCondition);
+    // updateBackground(weatherCondition);
 
     // Determine if it's day or night
     const isDaytime = currentTime >= sunrise && currentTime < sunset;
@@ -187,6 +187,11 @@ function updateMap(lat, lon) {
 // const lat = result.coord.lat;
 // const lon = result.coord.lon;
 // updateMap(lat, lon);
+const lat = result.coord.lat;
+const lon = result.coord.lon;
+
+fetchAQIAndUV(lat, lon);
+updateMap(lat, lon);
 
 
 
